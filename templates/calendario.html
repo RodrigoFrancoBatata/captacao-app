@@ -1,0 +1,19 @@
+<!-- Bloco oculto com os dados em JSON -->
+<script id="eventos-data" type="application/json">
+  {{ eventos|tojson|safe }}
+</script>
+
+<!-- Script do calendário -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const raw = document.getElementById('eventos-data').textContent;
+    const eventos = JSON.parse(raw);
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      height: 'auto',
+      events: eventos
+    });
+    calendar.render();
+  });
+</script>
