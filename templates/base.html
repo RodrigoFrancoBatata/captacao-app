@@ -5,8 +5,47 @@
   <title>App de Captação</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding-top: 60px;
+      background: #f3f3f3;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #222;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 999;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
-  {% block content %}{% endblock %}
+  <div class="navbar">
+    <a href="/">📋 Cadastro</a>
+    <a href="/calendario">📅 Agenda</a>
+    <a href="/visitas">📜 Visitas</a>
+  </div>
+
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
 </body>
 </html>
