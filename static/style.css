@@ -1,0 +1,17 @@
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  background: #f3f3f3;
+}
+
+form input, form textarea, form button {
+  display: block;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: 400px;
+  padding: 6px;
+}
+
+h2 {
+  color: #222;
+}
