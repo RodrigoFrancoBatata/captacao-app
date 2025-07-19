@@ -1,33 +1,26 @@
-{% extends 'base.html' %}
-{% block content %}
-
-<div style="text-align: center;">
-  <!-- Logo Nacar -->
-  <img src="{{ url_for('static', filename='logo_nacar.png') }}" alt="Logo Nacar" style="width: 180px; margin-bottom: 20px;">
+<div class="produtos-btns">
+  <div class="produtos-btn">
+    <img src="{{ url_for('static', filename='img/capacete.png') }}" alt="Capacete">
+    Capacete
+  </div>
+  <div class="produtos-btn">
+    <img src="{{ url_for('static', filename='img/luva.png') }}" alt="Luva">
+    Luva
+  </div>
+  <div class="produtos-btn">
+    <img src="{{ url_for('static', filename='img/jaqueta.png') }}" alt="Jaqueta">
+    Jaqueta
+  </div>
+  <div class="produtos-btn">
+    <img src="{{ url_for('static', filename='img/macacao.png') }}" alt="Macacão">
+    Calça
+  </div>
+  <div class="produtos-btn">
+    <img src="{{ url_for('static', filename='img/intercomunicador.png') }}" alt="Intercomunicador">
+    Intercom
+  </div>
+  <div class="produtos-btn">
+    <img src="{{ url_for('static', filename='img/oficina.png') }}" alt="Acessórios">
+    Acessórios
+  </div>
 </div>
-
-<!-- Botões de Acesso -->
-<div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 30px;">
-  <a href="/visitas-tabela" class="menu-btn">
-    <img src="{{ url_for('static', filename='icon_visita.png') }}" alt="Visitas" style="width: 40px;"><br>Visitas
-  </a>
-  <a href="/cadastro" class="menu-btn">
-    <img src="{{ url_for('static', filename='icon_cadastro.png') }}" alt="Cadastro" style="width: 40px;"><br>Cadastro
-  </a>
-</div>
-
-<!-- Agenda de hoje -->
-<h3 style="margin-left: 10px;">📅 Minha agenda para Hoje</h3>
-<div style="padding: 10px;">
-  {% if visitas_hoje %}
-    <ul style="list-style: none; padding-left: 10px;">
-      {% for v in visitas_hoje %}
-        <li>🔸 {{ v.nome_fantasia }}</li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p style="padding-left: 10px;">Nenhuma visita agendada para hoje.</p>
-  {% endif %}
-</div>
-
-{% endblock %}
