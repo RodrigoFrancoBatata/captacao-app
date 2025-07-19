@@ -1,3 +1,4 @@
+/* Reset e base */
 body {
     margin: 0;
     padding: 0;
@@ -5,12 +6,14 @@ body {
     background: #f2f2f2;
 }
 
-.menu-container {
-    text-align: center;
-    padding: 50px 20px;
+.container {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
 }
 
-.menu-buttons {
+/* Menu Inicial */
+.menu-botoes {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -18,16 +21,78 @@ body {
     margin-top: 30px;
 }
 
-.menu-btn {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 40px;
+.botao-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #d9d9d9;
+    padding: 20px;
+    border-radius: 12px;
+    width: 130px;
+    height: 130px;
     text-decoration: none;
-    font-size: 18px;
-    border-radius: 10px;
-    transition: background-color 0.3s;
+    color: black;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
 }
 
-.menu-btn:hover {
-    background-color: #555;
+.botao-menu img {
+    width: 40px;
+    margin-bottom: 10px;
+}
+
+.botao-menu:hover {
+    transform: scale(1.05);
+}
+
+/* Agenda */
+.agenda-bloco {
+    margin-top: 40px;
+    text-align: left;
+}
+
+.agenda-bloco h2 {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    gap: 10px;
+}
+
+.icon-agenda {
+    width: 24px;
+}
+
+.calendario-box {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.calendario-img {
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .botao-menu {
+        width: 100px;
+        height: 100px;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .botao-menu img {
+        width: 30px;
+    }
+
+    .agenda-bloco h2 {
+        font-size: 16px;
+    }
+
+    .calendario-img {
+        width: 100%;
+    }
 }
