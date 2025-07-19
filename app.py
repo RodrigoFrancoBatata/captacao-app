@@ -11,11 +11,11 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 app.config['UPLOAD_FOLDER'] = 'photos'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 # Garante que a pasta 'photos' existe
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
@@ -41,11 +41,13 @@ def salvar_cadastro():
     whatsapp = request.form['whatsapp']
     site = request.form['site']
     produtos = ', '.join(request.form.getlist('produtos'))
-    marcas = ', '.join(request.form.getlist('marcas'))
-    novas_marcas = request.form['novas_marcas']
-    info_extra = request.form['info_extra']
+    marcas = request.form['marcas']
+    novas_marcas = request.form.get('novas_marcas', '')
+    info_extra = request.form.get('info_extra', '')
     data_visita = datetime.today().date()
-    proxima_visita = datetime.strptime(request.form['proxima_visita'], "%Y-%m-%d").date()
+
+    data_raw = request.form.get('proxima_visita')
+    proxima_visita = datetime.strptime(data_raw, "%Y-%m-%d").date() if data_raw else None
 
     fotos = []
     for i in range(1, 5):
@@ -80,13 +82,8 @@ def salvar_cadastro():
 
 @app.route('/visitas')
 def visitas():
-    clientes = ClienteCaptado.query.order_by(ClienteCaptado.data_visita.desc()).all()
+    clientes = ClienteCaptado.query.order_by(ClienteCaptado.proxima_visita.asc()).all()
     return render_template('visitas.html', clientes=clientes)
-
-@app.route('/visitas-tabela')
-def visitas_tabela():
-    clientes = ClienteCaptado.query.order_by(ClienteCaptado.proxima_visita).all()
-    return render_template('visitas_tabela.html', clientes=clientes)
 
 @app.route('/calendario')
 def calendario():
@@ -110,9 +107,9 @@ def editar(id):
         cliente.whatsapp = request.form['whatsapp']
         cliente.site = request.form['site']
         cliente.produtos = ', '.join(request.form.getlist('produtos'))
-        cliente.marcas = ', '.join(request.form.getlist('marcas'))
-        cliente.novas_marcas = request.form['novas_marcas']
-        cliente.info_extra = request.form['info_extra']
+        cliente.marcas = request.form['marcas']
+        cliente.novas_marcas = request.form.get('novas_marcas', '')
+        cliente.info_extra = request.form.get('info_extra', '')
         cliente.proxima_visita = datetime.strptime(request.form['proxima_visita'], "%Y-%m-%d").date()
 
         db.session.commit()
