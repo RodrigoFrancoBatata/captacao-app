@@ -68,5 +68,42 @@ def cadastro():
     db.session.commit()
     return redirect(url_for('home'))
 
+@app.route('/visitas')
+def visitas():
+    clientes = ClienteCaptado.query.order_by(ClienteCaptado.data_visita.desc()).all()
+    return render_template('visitas.html', clientes=clientes)
+
+@app.route('/calendario')
+def calendario():
+    eventos = ClienteCaptado.query.with_entities(
+        ClienteCaptado.nome_fantasia, ClienteCaptado.proxima_visita
+    ).all()
+    eventos_formatados = [
+        {"title": nome, "start": str(data)} for nome, data in eventos if data
+    ]
+    return render_template('calendario.html', eventos=eventos_formatados)
+
+@app.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    cliente = ClienteCaptado.query.get_or_404(id)
+
+    if request.method == 'POST':
+        cliente.nome = request.form['nome']
+        cliente.nome_fantasia = request.form['nome_fantasia']
+        cliente.endereco = request.form['endereco']
+        cliente.telefone = request.form['telefone']
+        cliente.whatsapp = request.form['whatsapp']
+        cliente.site = request.form['site']
+        cliente.produtos = ', '.join(request.form.getlist('produtos'))
+        cliente.marcas = ', '.join(request.form.getlist('marcas'))
+        cliente.novas_marcas = request.form['novas_marcas']
+        cliente.info_extra = request.form['info_extra']
+        cliente.proxima_visita = datetime.strptime(request.form['proxima_visita'], "%Y-%m-%d").date()
+
+        db.session.commit()
+        return redirect(url_for('visitas'))
+
+    return render_template('editar.html', cliente=cliente)
+
 if __name__ == '__main__':
     app.run(debug=True)
