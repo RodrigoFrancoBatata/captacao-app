@@ -20,10 +20,16 @@ with app.app_context():
 
 @app.route('/')
 def home():
+    hoje = datetime.today().date()
+    visitas_hoje = ClienteCaptado.query.filter(ClienteCaptado.proxima_visita == hoje).all()
+    return render_template('home.html', visitas_hoje=visitas_hoje)
+
+@app.route('/cadastro')
+def cadastro():
     return render_template('cadastro.html')
 
 @app.route('/cadastro', methods=['POST'])
-def cadastro():
+def salvar_cadastro():
     nome = request.form['nome']
     nome_fantasia = request.form['nome_fantasia']
     endereco = request.form['endereco']
@@ -72,6 +78,11 @@ def cadastro():
 def visitas():
     clientes = ClienteCaptado.query.order_by(ClienteCaptado.data_visita.desc()).all()
     return render_template('visitas.html', clientes=clientes)
+
+@app.route('/visitas-tabela')
+def visitas_tabela():
+    clientes = ClienteCaptado.query.order_by(ClienteCaptado.proxima_visita).all()
+    return render_template('visitas_tabela.html', clientes=clientes)
 
 @app.route('/calendario')
 def calendario():

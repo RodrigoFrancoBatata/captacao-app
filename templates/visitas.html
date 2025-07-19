@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Visitas Realizadas</h2>
+<a href="/">← Nova Captação</a> | <a href="/calendario">📅 Ver Calendário</a>
+<hr>
+{% for cliente in clientes %}
+  <div style="margin-bottom: 20px; padding: 10px; background: #fff; border-radius: 5px;">
+    <strong>{{ cliente.nome_fantasia }}</strong><br>
+    {{ cliente.endereco }}<br>
+    <small>Visitado em: {{ cliente.data_visita.strftime("%d/%m/%Y") }}<br>
+      <a href="/editar/{{ cliente.id }}">✏️ Editar</a>
+    Próxima visita: {{ cliente.proxima_visita.strftime("%d/%m/%Y") }}</small><br>
+    <strong>Produtos:</strong> {{ cliente.produtos }}<br>
+    <strong>Marcas:</strong> {{ cliente.marcas }}{% if cliente.novas_marcas %}, {{ cliente.novas_marcas }}{% endif %}<br>
+    <strong>WhatsApp:</strong> {{ cliente.whatsapp }}<br>
+    <strong>Info Extra:</strong> {{ cliente.info_extra }}<br>
+    {% if cliente.foto1 or cliente.foto2 or cliente.foto3 or cliente.foto4 %}
+      <details>
+        <summary>📸 Ver Fotos</summary>
+        {% for foto in [cliente.foto1, cliente.foto2, cliente.foto3, cliente.foto4] %}
+          {% if foto %}
+            <img src="/{{ foto }}" width="200" style="margin:10px">
+          {% endif %}
+        {% endfor %}
+      </details>
+    {% endif %}
+  </div>
+{% endfor %}
+{% endblock %}

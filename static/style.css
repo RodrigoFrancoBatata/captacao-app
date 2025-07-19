@@ -1,10 +1,41 @@
 body {
   font-family: sans-serif;
-  padding: 20px;
+  margin: 0;
+  padding-top: 60px;
   background: #f3f3f3;
 }
 
-form input, form textarea, form button {
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #222;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  padding: 20px;
+}
+
+form input,
+form textarea,
+form select,
+form button {
   display: block;
   margin-bottom: 12px;
   width: 100%;
@@ -14,4 +45,25 @@ form input, form textarea, form button {
 
 h2 {
   color: #222;
+}
+
+.menu-btn {
+  background: #eee;
+  border: 2px solid #333;
+  border-radius: 12px;
+  padding: 10px 20px;
+  text-align: center;
+  width: 120px;
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-btn:hover {
+  background: #ddd;
+}
+
+img {
+  max-width: 100%;
 }
