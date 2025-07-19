@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
 from werkzeug.utils import secure_filename
+import requests
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -19,6 +20,10 @@ def cadastro():
 @app.route('/visitas')
 def visitas():
     return "Página de Visitas em construção."
+
+@app.route('/agenda')
+def agenda():
+    return "<h2>Agenda em construção</h2>"
 
 @app.route('/salvar_cadastro', methods=['POST'])
 def salvar_cadastro():
@@ -44,7 +49,6 @@ def salvar_cadastro():
 
 @app.route('/consulta_cep/<cep>')
 def consulta_cep(cep):
-    import requests
     r = requests.get(f'https://viacep.com.br/ws/{cep}/json/')
     data = r.json()
     logradouro = data.get('logradouro', '')
