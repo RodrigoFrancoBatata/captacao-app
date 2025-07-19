@@ -27,21 +27,22 @@
 
             <h3>Produtos que Trabalha</h3>
             <div class="produtos-btns">
-                {% for item in [
-                    ['capacete.png', 'Capacete'],
-                    ['luva.png', 'Luva'],
-                    ['jaqueta.png', 'Jaqueta'],
-                    ['macacão.png', 'Macacão'],
-                    ['Intercomunicador.png', 'Intercom'],
-                    ['oficina.png', 'Acessórios']
-                ] %}
-                <label class="produtos-btn">
-                    <input type="checkbox" name="produtos" value="{{ item[1] }}" style="display:none">
-                    <img src="{{ url_for('static', filename='img/' + item[0]) }}" alt="{{ item[1] }}">
-                    <div>{{ item[1] }}</div>
-                </label>
-                {% endfor %}
-            </div>
+    {% for item in [
+        ['capacete.png', 'Capacete'],
+        ['luva.png', 'Luva'],
+        ['Jaqueta.png', 'Jaqueta'],
+        ['macacão.png', 'Macacão'],
+        ['Intercomunicador.png', 'Intercom'],
+        ['oficina.png', 'Acessórios']
+    ] %}
+    <label class="produtos-btn">
+        <input type="checkbox" name="produtos" value="{{ item[1] }}" style="display:none">
+        <img src="{{ url_for('static', filename='img/' + item[0]) }}" alt="{{ item[1] }}">
+        <div>{{ item[1] }}</div>
+    </label>
+    {% endfor %}
+</div>
+
 
             <h3>Marcas dos produtos</h3>
             <input type="text" name="marcas" placeholder="Ex: Shoei, Alpinestars, Nolan...">
