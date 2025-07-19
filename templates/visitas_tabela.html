@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 style="text-align:center;">📋 Visitas Registradas</h2>
+
+<table style="width: 100%; border-collapse: collapse; background: white;">
+  <thead>
+    <tr style="background: #eee;">
+      <th style="padding: 10px; border: 1px solid #ccc;">Nome Fantasia</th>
+      <th style="padding: 10px; border: 1px solid #ccc;">Data Cadastro</th>
+      <th style="padding: 10px; border: 1px solid #ccc;">Próxima Visita</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for cliente in clientes %}
+      <tr>
+        <td style="padding: 8px; border: 1px solid #ccc;">{{ cliente.nome_fantasia }}</td>
+        <td style="padding: 8px; border: 1px solid #ccc;">{{ cliente.data_visita.strftime('%d/%m/%Y') }}</td>
+        <td style="padding: 8px; border: 1px solid #ccc;">{{ cliente.proxima_visita.strftime('%d/%m/%Y') }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
