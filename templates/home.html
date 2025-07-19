@@ -1,26 +1,17 @@
-<div class="produtos-btns">
-  <div class="produtos-btn">
-    <img src="{{ url_for('static', filename='img/capacete.png') }}" alt="Capacete">
-    Capacete
-  </div>
-  <div class="produtos-btn">
-    <img src="{{ url_for('static', filename='img/luva.png') }}" alt="Luva">
-    Luva
-  </div>
-  <div class="produtos-btn">
-    <img src="{{ url_for('static', filename='img/jaqueta.png') }}" alt="Jaqueta">
-    Jaqueta
-  </div>
-  <div class="produtos-btn">
-    <img src="{{ url_for('static', filename='img/macacao.png') }}" alt="Macacão">
-    Calça
-  </div>
-  <div class="produtos-btn">
-    <img src="{{ url_for('static', filename='img/intercomunicador.png') }}" alt="Intercomunicador">
-    Intercom
-  </div>
-  <div class="produtos-btn">
-    <img src="{{ url_for('static', filename='img/oficina.png') }}" alt="Acessórios">
-    Acessórios
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Captação - Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>Menu Inicial</h1>
+        <div class="menu-buttons">
+            <a href="/cadastro" class="menu-btn">Cadastro</a>
+            <a href="/agenda" class="menu-btn">Agenda</a>
+        </div>
+    </div>
+</body>
+</html>
