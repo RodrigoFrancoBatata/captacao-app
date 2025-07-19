@@ -26,13 +26,21 @@
             <input type="text" name="site" placeholder="Site ou Rede Social">
 
             <h3>Produtos que Trabalha</h3>
-            <div class="produtos">
-                <label><input type="checkbox" name="produtos" value="Capacete"><img src="/static/icones/capacete.png"><span>Capacete</span></label>
-                <label><input type="checkbox" name="produtos" value="Luva"><img src="/static/icones/luva.png"><span>Luva</span></label>
-                <label><input type="checkbox" name="produtos" value="Jaqueta"><img src="/static/icones/jaqueta.png"><span>Jaqueta</span></label>
-                <label><input type="checkbox" name="produtos" value="Calça"><img src="/static/icones/calca.png"><span>Calça</span></label>
-                <label><input type="checkbox" name="produtos" value="Intercom"><img src="/static/icones/intercom.png"><span>Intercom</span></label>
-                <label><input type="checkbox" name="produtos" value="Acessórios"><img src="/static/icones/acessorios.png"><span>Acessórios</span></label>
+            <div class="produtos-btns">
+                {% for item in [
+                    ['capacete.png', 'Capacete'],
+                    ['luva.png', 'Luva'],
+                    ['jaqueta.png', 'Jaqueta'],
+                    ['macacão.png', 'Macacão'],
+                    ['Intercomunicador.png', 'Intercom'],
+                    ['oficina.png', 'Acessórios']
+                ] %}
+                <label class="produtos-btn">
+                    <input type="checkbox" name="produtos" value="{{ item[1] }}" style="display:none">
+                    <img src="{{ url_for('static', filename='img/' + item[0]) }}" alt="{{ item[1] }}">
+                    <div>{{ item[1] }}</div>
+                </label>
+                {% endfor %}
             </div>
 
             <h3>Marcas dos produtos</h3>
@@ -46,17 +54,17 @@
                 <input type="file" name="foto4" accept="image/*">
             </div>
 
-            <div class="retorno">
-                <button type="button" onclick="abrirModal()">📅 Retorno</button>
-            </div>
+            <button type="button" class="retorno-btn" onclick="abrirModal()">
+                <img src="{{ url_for('static', filename='img/calendario.png') }}"> Retorno
+            </button>
 
             <input type="hidden" name="proxima_visita" id="proxima_visita">
-            <button type="submit" class="btn-enviar">Cadastrar</button>
+            <button type="submit">Cadastrar</button>
         </form>
     </div>
 
     <!-- Modal para agendar retorno -->
-    <div id="modal" class="modal">
+    <div id="modal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close" onclick="fecharModal()">&times;</span>
             <h3>Agendar retorno</h3>

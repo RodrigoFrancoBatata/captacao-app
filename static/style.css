@@ -25,9 +25,9 @@ input[type="text"],
 input[type="file"],
 input[type="number"],
 input[type="tel"],
-input[type="email"] {
+input[type="email"],
+input[type="date"] {
     width: 100%;
-    max-width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -46,12 +46,8 @@ input[type="submit"], button {
     font-size: 1rem;
 }
 
-input[type="submit"]:hover, button:hover {
+button:hover, input[type="submit"]:hover {
     background-color: #333;
-}
-
-.form-group {
-    margin-bottom: 15px;
 }
 
 .produtos-btns {
@@ -70,10 +66,7 @@ input[type="submit"]:hover, button:hover {
     border-radius: 8px;
     width: 90px;
     cursor: pointer;
-}
-
-.produtos-btn.selected {
-    background-color: #ccc;
+    user-select: none;
 }
 
 .produtos-btn img {
@@ -81,6 +74,15 @@ input[type="submit"]:hover, button:hover {
     height: 40px;
     display: block;
     margin: 0 auto 5px auto;
+}
+
+.produtos-btn input[type="checkbox"]:checked + img {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.produtos-btn.selected {
+    background-color: #ccc;
 }
 
 .retorno-btn {
@@ -99,4 +101,30 @@ input[type="submit"]:hover, button:hover {
 .retorno-btn img {
     width: 20px;
     height: 20px;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal-content input {
+    margin-bottom: 20px;
 }
