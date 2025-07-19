@@ -1,98 +1,45 @@
-/* Reset e base */
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: #f2f2f2;
+    background-color: #f2f2f2;
 }
 
-.container {
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
+.menu-container {
+    text-align: center;
+    padding: 60px 20px;
 }
 
-/* Menu Inicial */
-.menu-botoes {
+.menu-buttons {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 30px;
+    gap: 30px;
+    margin-top: 20px;
 }
 
-.botao-menu {
+.menu-btn {
+    width: 180px;
+    height: 150px;
+    background-color: #d9d9d9;
+    color: #000;
+    font-size: 20px;
+    border-radius: 15px;
+    text-decoration: none;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    background-color: #d9d9d9;
-    padding: 20px;
-    border-radius: 12px;
-    width: 130px;
-    height: 130px;
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
 }
 
-.botao-menu img {
-    width: 40px;
-    margin-bottom: 10px;
-}
-
-.botao-menu:hover {
+.menu-btn:hover {
     transform: scale(1.05);
 }
 
-/* Agenda */
-.agenda-bloco {
-    margin-top: 40px;
-    text-align: left;
-}
-
-.agenda-bloco h2 {
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    gap: 10px;
-}
-
-.icon-agenda {
-    width: 24px;
-}
-
-.calendario-box {
-    margin-top: 10px;
-    text-align: center;
-}
-
-.calendario-img {
-    width: 100%;
-    max-width: 500px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-/* Responsivo */
-@media (max-width: 600px) {
-    .botao-menu {
-        width: 100px;
-        height: 100px;
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .botao-menu img {
-        width: 30px;
-    }
-
-    .agenda-bloco h2 {
-        font-size: 16px;
-    }
-
-    .calendario-img {
-        width: 100%;
-    }
+.icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
 }
