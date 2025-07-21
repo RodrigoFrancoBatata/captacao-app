@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>App de Captação</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <style>
     body {
       font-family: sans-serif;
@@ -12,6 +12,7 @@
       padding-top: 60px;
       background: #f3f3f3;
     }
+
     .navbar {
       position: fixed;
       top: 0;
@@ -24,16 +25,34 @@
       align-items: center;
       z-index: 999;
     }
+
     .navbar a {
       color: white;
       text-decoration: none;
       font-weight: bold;
+      font-size: 14px;
     }
+
     .navbar a:hover {
       text-decoration: underline;
     }
+
     .container {
       padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        padding: 10px;
+        gap: 8px;
+      }
+      .navbar a {
+        font-size: 16px;
+      }
+      .container {
+        padding: 10px;
+      }
     }
   </style>
 </head>
