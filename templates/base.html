@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding-top: 60px;
+      padding-top: 90px;
       background: #f9f9f9;
     }
 
@@ -18,61 +18,83 @@
       top: 0;
       width: 100%;
       background: white;
-      color: #222;
-      padding: 8px 16px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 25px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-      z-index: 10;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
     }
 
-    .navbar a {
+    .navbar-logo {
+      text-align: center;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .navbar-logo img {
+      height: 40px;
+    }
+
+    .navbar-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      overflow-x: auto;
+      padding: 10px 0;
+      white-space: nowrap;
+    }
+
+    .navbar-links a {
       color: #333;
       text-decoration: none;
       font-weight: 500;
       font-size: 15px;
-      padding: 5px 8px;
+      padding: 4px 10px;
     }
 
-    .navbar a:hover {
+    .navbar-links a:hover {
       text-decoration: underline;
     }
 
     .container {
       padding: 20px;
-      position: relative;
-      z-index: 1;
     }
 
     @media (max-width: 600px) {
-      .navbar {
-        flex-direction: column;
-        gap: 10px;
-        padding: 12px;
-      }
-
-      .navbar a {
-        font-size: 16px;
+      .navbar-links {
+        justify-content: flex-start;
+        padding: 10px 15px;
+        gap: 15px;
       }
 
       .container {
-        padding: 10px;
+        padding: 12px;
+      }
+
+      .navbar-logo img {
+        height: 35px;
+      }
+
+      .navbar-links a {
+        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
+
   <div class="navbar">
-    <a href="/">🏠 Início</a>
-    <a href="/cadastro">➕ Cadastro</a>
-    <a href="/clientes">📋 Clientes</a>
-    <a href="/agenda">📅 Agenda</a>
+    <div class="navbar-logo">
+      <img src="/static/img/logo_nacar.png" alt="NACAR">
+    </div>
+    <div class="navbar-links">
+      <a href="/">🏠 Início</a>
+      <a href="/cadastro">➕ Cadastro</a>
+      <a href="/clientes">📋 Clientes</a>
+      <a href="/agenda">📅 Agenda</a>
+    </div>
   </div>
 
   <div class="container">
     {% block content %}{% endblock %}
   </div>
+
 </body>
 </html>
