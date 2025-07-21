@@ -2,48 +2,57 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Cliente</title>
+    <title>Cadastro de Clientes</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Cadastro de Cliente</h1>
-        <form method="POST" enctype="multipart/form-data">
-            <label for="nome_contato">Nome do Contato:</label>
-            <input type="text" id="nome_contato" name="nome_contato" required>
+    <div class="form-container">
+        <img src="{{ url_for('static', filename='img/logo_nacar.png') }}" alt="Logo Nacar" class="form-logo">
+        <h1>Cadastro de Clientes</h1>
 
-            <label for="nome_fantasia">Nome Fantasia (Loja):</label>
-            <input type="text" id="nome_fantasia" name="nome_fantasia" required>
+        <form method="POST" action="/salvar_cadastro" enctype="multipart/form-data">
 
-            <label for="telefone">Telefone:</label>
-            <input type="text" id="telefone" name="telefone">
+            <input type="text" name="contato" placeholder="Nome do Contato" required>
+            <input type="text" name="fantasia" placeholder="Nome Fantasia (Loja)" required>
 
-            <label for="whatsapp">WhatsApp:</label>
-            <input type="text" id="whatsapp" name="whatsapp">
+            <div class="cep-row">
+                <input type="text" name="cep" placeholder="CEP" class="cep">
+                <input type="text" name="endereco" placeholder="Endereço completo" required>
+            </div>
 
-            <label for="cep">CEP:</label>
-            <input type="text" id="cep" name="cep">
+            <div class="double-row">
+                <input type="text" name="telefone" placeholder="Telefone">
+                <input type="text" name="whatsapp" placeholder="WhatsApp">
+            </div>
 
-            <label for="endereco">Endereço:</label>
-            <input type="text" id="endereco" name="endereco">
+            <input type="text" name="site" placeholder="Site ou Rede Social">
 
-            <label for="site">Site ou Rede Social:</label>
-            <input type="text" id="site" name="site">
+            <h2>Produtos que Trabalha</h2>
+            <div class="checkbox-group">
+                {% for item in ['Capacete', 'Luvas', 'Jaquetas', 'Macacão', 'Intercomunicador', 'Oficina'] %}
+                <label><input type="checkbox" name="produtos" value="{{ item }}"> {{ item }}</label>
+                {% endfor %}
+            </div>
 
-            <label for="produtos">Produtos que Trabalha:</label>
-            <input type="text" id="produtos" name="produtos" placeholder="Ex: Capacete, Jaqueta, Intercom">
+            <h2>Marcas dos Produtos</h2>
+            <input type="text" name="marcas" placeholder="Digite as marcas que trabalha">
 
-            <label for="marcas">Marcas:</label>
-            <input type="text" id="marcas" name="marcas" placeholder="Ex: Shoei, Nolan, Alpinestars">
+            <h2>Fotos (até 4)</h2>
+            <div class="upload-grid">
+                {% for i in range(4) %}
+                <input type="file" name="foto{{ i+1 }}">
+                {% endfor %}
+            </div>
 
-            <label for="foto_loja">Foto da Loja:</label>
-            <input type="file" id="foto_loja" name="foto_loja">
-
-            <button type="submit">Cadastrar</button>
+            <div class="action-buttons">
+                <button type="submit" class="pdf-btn">
+                    <img src="{{ url_for('static', filename='img/pdf-icon.png') }}" alt="PDF"> Gerar PDF
+                </button>
+                <a href="/" class="return-btn">
+                    <img src="{{ url_for('static', filename='img/icon_visita.png') }}" alt="Voltar"> Retorno
+                </a>
+            </div>
         </form>
-
-        <br>
-        <a href="/" class="menu-btn">⬅ Voltar ao Menu</a>
     </div>
 </body>
 </html>
