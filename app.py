@@ -4,6 +4,8 @@ from models import db, ClienteCaptado
 from dotenv import load_dotenv
 import os
 import requests
+import pdfkit
+from flask import make_response
 
 # Carrega variáveis do .env
 load_dotenv()
@@ -121,6 +123,25 @@ def editar_cliente(id):
 def visualizar_cliente(id):
     cliente = ClienteCaptado.query.get_or_404(id)
     return render_template("cliente.html", cliente=cliente)
+
+import pdfkit
+from flask import make_response
+
+@app.route('/cliente/<int:id>/pdf')
+def gerar_pdf_cliente(id):
+    cliente = ClienteCaptado.query.get_or_404(id)
+    html = render_template("cliente.html", cliente=cliente)
+
+    options = {
+        'enable-local-file-access': None
+    }
+
+    pdf = pdfkit.from_string(html, False, options=options)
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = f'inline; filename=cliente_{id}.pdf'
+    return response
+
 
 
 if __name__ == '__main__':
