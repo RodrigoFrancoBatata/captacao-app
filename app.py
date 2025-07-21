@@ -135,7 +135,9 @@ def gerar_pdf_cliente(id):
 
 @app.route('/agenda')
 def agenda():
-    return render_template("calendario.html")
+    clientes = ClienteCaptado.query.filter(ClienteCaptado.proxima_visita != None).order_by(ClienteCaptado.proxima_visita).all()
+    return render_template("agenda.html", clientes=clientes)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
