@@ -1,32 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Menu Inicial</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="menu-container">
-        <img src="{{ url_for('static', filename='img/logo_nacar.png') }}" alt="Logo Nacar" class="logo-nacar">
+{% extends 'base.html' %}
+{% block content %}
+<div style="text-align: center; padding: 30px;">
+  <img src="/static/img/logo_nacar.png" alt="Logo NACAR" style="height: 90px; margin-bottom: 10px;">
+  <h2 style="margin-top: 0; font-size: 26px;">Sistema de Captação de Clientes</h2>
+  <p style="color: #666; font-size: 15px;">Organize cadastros, acompanhe visitas e planeje retornos com eficiência.</p>
+</div>
 
-        <div class="menu-buttons">
-            <a href="/visitas" class="menu-btn">
-                <img src="{{ url_for('static', filename='img/icon_visita.png') }}" alt="Visitas" class="icon-btn">
-                <span>Visitas</span>
-            </a>
-            <a href="/cadastro" class="menu-btn">
-                <img src="{{ url_for('static', filename='img/icon_cadastro.png') }}" alt="Cadastro" class="icon-btn">
-                <span>Cadastro</span>
-            </a>
-        </div>
-
-        <div class="agenda-section">
-            <div class="agenda-title">
-                <img src="{{ url_for('static', filename='img/calendario.png') }}" alt="Agenda">
-                <h3>Minha agenda para Hoje</h3>
-            </div>
-            <p>Nenhuma visita agendada para hoje.</p>
-        </div>
-    </div>
-</body>
-</html>
+<div class="menu-buttons">
+  <a href="/cadastro" class="menu-btn">
+    <img src="/static/img/icon_cadastro.png" alt="Cadastro">
+    <span>Cadastro</span>
+  </a>
+  <a href="/clientes" class="menu-btn">
+    <img src="/static/img/icon_visita.png" alt="Clientes">
+    <span>Clientes</span>
+  </a>
+  <a href="/agenda" class="menu-btn">
+    <img src="/static/img/calendario.png" alt="Agenda">
+    <span>Agenda</span>
+  </a>
+</div>
+{% endblock %}
