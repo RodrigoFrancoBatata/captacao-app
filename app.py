@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, make_response
 from werkzeug.utils import secure_filename
 from models import db, ClienteCaptado
 from dotenv import load_dotenv
+from weasyprint import HTML
 import os
 import requests
-import pdfkit
-from flask import make_response
 
 # Carrega variáveis do .env
 load_dotenv()
@@ -118,34 +117,21 @@ def editar_cliente(id):
         return redirect("/clientes")
     return render_template("editar.html", cliente=cliente)
 
-
 @app.route('/cliente/<int:id>')
 def visualizar_cliente(id):
     cliente = ClienteCaptado.query.get_or_404(id)
     return render_template("cliente.html", cliente=cliente)
 
-import pdfkit
-from flask import make_response
-
 @app.route('/cliente/<int:id>/pdf')
 def gerar_pdf_cliente(id):
     cliente = ClienteCaptado.query.get_or_404(id)
     html = render_template("cliente.html", cliente=cliente)
-
-    options = {
-        'enable-local-file-access': None
-    }
-
-    pdf = pdfkit.from_string(html, False, options=options)
+    pdf = HTML(string=html, base_url=request.base_url).write_pdf()
+    
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = f'inline; filename=cliente_{id}.pdf'
     return response
 
-
-
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
