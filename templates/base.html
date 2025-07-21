@@ -10,27 +10,30 @@
       font-family: sans-serif;
       margin: 0;
       padding-top: 60px;
-      background: #f3f3f3;
+      background: #f9f9f9;
     }
 
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
-      background: #222;
-      color: white;
-      padding: 10px 20px;
+      background: white;
+      color: #222;
+      padding: 8px 16px;
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
-      z-index: 2;
+      gap: 25px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      z-index: 10;
     }
 
     .navbar a {
-      color: white;
+      color: #333;
       text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
+      font-weight: 500;
+      font-size: 15px;
+      padding: 5px 8px;
     }
 
     .navbar a:hover {
@@ -46,12 +49,14 @@
     @media (max-width: 600px) {
       .navbar {
         flex-direction: column;
-        padding: 10px;
-        gap: 8px;
+        gap: 10px;
+        padding: 12px;
       }
+
       .navbar a {
         font-size: 16px;
       }
+
       .container {
         padding: 10px;
       }
@@ -60,9 +65,10 @@
 </head>
 <body>
   <div class="navbar">
-    <a href="/">📋 Cadastro</a>
-    <a href="/calendario">📅 Agenda</a>
-    <a href="/visitas">📜 Visitas</a>
+    <a href="/">🏠 Início</a>
+    <a href="/cadastro">➕ Cadastro</a>
+    <a href="/clientes">📋 Clientes</a>
+    <a href="/agenda">📅 Agenda</a>
   </div>
 
   <div class="container">
