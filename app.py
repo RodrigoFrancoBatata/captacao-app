@@ -133,5 +133,9 @@ def gerar_pdf_cliente(id):
     response.headers['Content-Disposition'] = f'inline; filename=cliente_{id}.pdf'
     return response
 
+@app.route('/agenda')
+def agenda():
+    return render_template("calendario.html")
+
 if __name__ == '__main__':
     app.run(debug=True)
