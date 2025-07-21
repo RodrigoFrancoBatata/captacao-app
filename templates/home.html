@@ -7,15 +7,25 @@
 </head>
 <body>
     <div class="menu-container">
+        <img src="{{ url_for('static', filename='img/logo_nacar.png') }}" alt="Logo Nacar" class="logo-nacar">
+
         <div class="menu-buttons">
-            <a href="{{ url_for('visitas') }}" class="menu-btn">
-                <img src="{{ url_for('static', filename='img/icon_visita.png') }}" alt="Visitas" class="icon">
-                <div>Visitas</div>
+            <a href="/visitas" class="menu-btn">
+                <img src="{{ url_for('static', filename='img/icon_visita.png') }}" alt="Visitas">
+                <span>Visitas</span>
             </a>
-            <a href="{{ url_for('cadastro') }}" class="menu-btn">
-                <img src="{{ url_for('static', filename='img/icon_cadastro.png') }}" alt="Cadastro" class="icon">
-                <div>Cadastro</div>
+            <a href="/cadastro" class="menu-btn">
+                <img src="{{ url_for('static', filename='img/icon_cadastro.png') }}" alt="Cadastro">
+                <span>Cadastro</span>
             </a>
+        </div>
+
+        <div class="agenda-section">
+            <div class="agenda-title">
+                <img src="{{ url_for('static', filename='img/calendario.png') }}" alt="Agenda">
+                <h3>Minha agenda para Hoje</h3>
+            </div>
+            <p>Nenhuma visita agendada para hoje.</p>
         </div>
     </div>
 </body>
