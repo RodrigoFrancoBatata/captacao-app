@@ -116,5 +116,15 @@ def editar_cliente(id):
         return redirect("/clientes")
     return render_template("editar.html", cliente=cliente)
 
+
+@app.route('/cliente/<int:id>')
+def visualizar_cliente(id):
+    cliente = ClienteCaptado.query.get_or_404(id)
+    return render_template("cliente.html", cliente=cliente)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+

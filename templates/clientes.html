@@ -23,7 +23,8 @@
         <td style="padding: 8px; border: 1px solid #ccc;">
           {{ cliente.proxima_visita.strftime('%d/%m/%Y') if cliente.proxima_visita else '-' }}
         </td>
-        <td style="padding: 8px; border: 1px solid #ccc;">
+        <td style="padding: 8px; border: 1px solid #ccc; text-align:center;">
+          <a href="/cliente/{{ cliente.id }}" style="margin-right: 10px; color: green;">👁️ Ver</a>
           <a href="/editar/{{ cliente.id }}" style="color: blue;">✏️ Editar</a>
         </td>
       </tr>

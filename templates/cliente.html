@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 style="text-align:center;">🧾 Detalhes do Cliente</h2>
+
+<div style="background: white; max-width: 700px; margin: 20px auto; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+  <p><strong>Contato:</strong> {{ cliente.nome }}</p>
+  <p><strong>Loja:</strong> {{ cliente.nome_fantasia }}</p>
+  <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+  <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+  <p><strong>WhatsApp:</strong> {{ cliente.whatsapp }}</p>
+  <p><strong>Site ou Rede Social:</strong> {{ cliente.site }}</p>
+  <p><strong>Produtos:</strong> {{ cliente.produtos }}</p>
+  <p><strong>Marcas:</strong> {{ cliente.marcas }}</p>
+  <p><strong>Novas Marcas:</strong> {{ cliente.novas_marcas }}</p>
+  <p><strong>Informações Extras:</strong><br>{{ cliente.info_extra }}</p>
+  <p><strong>Data da Visita:</strong> {{ cliente.data_visita.strftime('%d/%m/%Y') if cliente.data_visita else '-' }}</p>
+  <p><strong>Próxima Visita:</strong> {{ cliente.proxima_visita.strftime('%d/%m/%Y') if cliente.proxima_visita else '-' }}</p>
+
+  <h3>📸 Fotos</h3>
+  <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    {% for foto in [cliente.foto1, cliente.foto2, cliente.foto3, cliente.foto4] %}
+      {% if foto %}
+        <img src="/static/uploads/{{ foto }}" style="max-width: 45%; border-radius: 8px;">
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div style="text-align:center; margin-top: 20px;">
+    <a href="/clientes" class="button-retorno">⬅️ Voltar</a>
+  </div>
+</div>
+{% endblock %}
