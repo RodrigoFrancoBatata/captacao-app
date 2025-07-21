@@ -3,91 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
     <script src="/static/script.js" defer></script>
 </head>
 <body>
-    <img src="/static/img/logo_nacar.png" class="logo" alt="NACAR">
+
+    <img src="/static/img/logo_nacar.png" class="logo-nacar" alt="NACAR">
 
     <form method="POST" action="/salvar_cadastro" enctype="multipart/form-data">
-        <h2>Cadastro de Clientes</h2>
+        <h2>Cadastro de Cliente</h2>
 
-        <input type="text" name="nome" placeholder="Nome do Contato" required>
-        <input type="text" name="nome_fantasia" placeholder="Nome Fantasia (Loja)" required>
+        <!-- DADOS PRINCIPAIS -->
+        <div class="form-section">
+            <input type="text" name="nome" placeholder="Nome do Contato" required>
+            <input type="text" name="nome_fantasia" placeholder="Nome Fantasia / Loja" required>
 
-        <div style="display: flex; gap: 10px;">
-            <input type="text" name="cep" placeholder="CEP" style="flex:1;" onblur="buscarEndereco(this.value)">
-            <input type="text" name="endereco" placeholder="Endereço completo" style="flex:2;">
+            <div style="display: flex; gap: 10px;">
+                <input type="text" name="cep" placeholder="CEP" style="flex:1;" onblur="buscarEndereco(this.value)">
+                <input type="text" name="endereco" placeholder="Endereço completo" style="flex:2;">
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <input type="text" name="telefone" placeholder="Telefone" style="flex:1;">
+                <input type="text" name="whatsapp" placeholder="WhatsApp" style="flex:1;">
+            </div>
+
+            <input type="text" name="site" placeholder="Site ou Rede Social">
         </div>
 
-        <div style="display: flex; gap: 10px;">
-            <input type="text" name="telefone" placeholder="Telefone" style="flex:1;">
-            <input type="text" name="whatsapp" placeholder="WhatsApp" style="flex:1;">
+        <!-- PRODUTOS -->
+        <div class="form-section">
+            <h3>Produtos que Trabalha</h3>
+            {% for item in ['Capacete', 'Luvas', 'Jaquetas', 'Macacão', 'Intercomunicador', 'Oficina'] %}
+                <label><input type="checkbox" name="produtos" value="{{ item }}"> {{ item }}</label><br>
+            {% endfor %}
         </div>
 
-        <input type="text" name="site" placeholder="Site ou Rede Social">
-
-        <h3>Produtos que Trabalha</h3>
-        <label><input type="checkbox" name="produtos" value="Capacete"> Capacete</label>
-        <label><input type="checkbox" name="produtos" value="Luvas"> Luvas</label>
-        <label><input type="checkbox" name="produtos" value="Jaquetas"> Jaquetas</label>
-        <label><input type="checkbox" name="produtos" value="Macacão"> Macacão</label>
-        <label><input type="checkbox" name="produtos" value="Intercomunicador"> Intercomunicador</label>
-        <label><input type="checkbox" name="produtos" value="Oficina"> Oficina</label>
-
-        <h3>Marcas dos Produtos</h3>
-        <input type="text" name="marcas" placeholder="Digite as marcas que trabalha">
-        <label>Novas Marcas:</label>
-        <input type="text" name="novas_marcas" placeholder="Outras marcas (opcional)">
-        <label>Informações extras:</label>
-        <textarea name="info_extra" placeholder="Observações..."></textarea>
-
-        <h3>Fotos (até 4)</h3>
-        <div class="upload-group">
-            <input type="file" name="foto1">
-            <input type="file" name="foto2">
-            <input type="file" name="foto3">
-            <input type="file" name="foto4">
+        <!-- MARCAS -->
+        <div class="form-section">
+            <h3>Marcas</h3>
+            <input type="text" name="marcas" placeholder="Ex: Nolan, LS2, Shoei">
+            <input type="text" name="novas_marcas" placeholder="Outras marcas (opcional)">
         </div>
 
-        <!-- Datas ocultas por enquanto -->
-        <input type="hidden" name="data_visita" value="">
-        <input type="hidden" name="proxima_visita" id="proxima_visita_input" value="">
+        <!-- INFORMAÇÕES EXTRAS -->
+        <div class="form-section">
+            <h3>Observações</h3>
+            <textarea name="info_extra" placeholder="Informações adicionais..."></textarea>
+        </div>
+
+        <!-- FOTOS -->
+        <div class="form-section">
+            <h3>Fotos (até 4)</h3>
+            <div class="upload-group">
+                <input type="file" name="foto1">
+                <input type="file" name="foto2">
+                <input type="file" name="foto3">
+                <input type="file" name="foto4">
+            </div>
+        </div>
+
+        <!-- RETORNO -->
+        <div class="form-section">
+            <h3>Agendar Retorno</h3>
+            <input type="hidden" name="data_visita" value="">
+            <input type="date" name="proxima_visita">
+        </div>
 
         <div class="button-group">
-            <button type="button" class="button-pdf">
-                <img src="/static/img/pdf.png" height="20"> Gerar PDF
-            </button>
-            <button type="button" class="button-retorno" onclick="openRetornoPopup()">
-                <img src="/static/img/calendario.png" height="20"> Retorno
-            </button>
             <button type="submit" class="button-pdf">Salvar Cadastro</button>
+            <a href="/" class="button-retorno">Cancelar</a>
         </div>
     </form>
 
-    <div id="popup-retorno" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#0008;">
-        <div style="background:white; padding:20px; max-width:400px; margin:80px auto; border-radius:12px;">
-            <h3>Agendar Retorno</h3>
-            <input type="date" id="input-retorno">
-            <button onclick="definirRetorno()">Confirmar</button>
-            <button onclick="closeRetornoPopup()">Fechar</button>
-        </div>
-    </div>
-
-    <script>
-        function buscarEndereco(cep) {
-            fetch(`/consulta_cep/${cep}`)
-                .then(res => res.json())
-                .then(data => {
-                    document.querySelector('input[name="endereco"]').value = data.endereco;
-                });
-        }
-
-        function definirRetorno() {
-            const data = document.getElementById("input-retorno").value;
-            document.getElementById("proxima_visita_input").value = data;
-            closeRetornoPopup();
-        }
-    </script>
 </body>
 </html>
