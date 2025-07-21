@@ -1,58 +1,63 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Clientes</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
 </head>
 <body>
-    <div class="form-container">
-        <img src="{{ url_for('static', filename='img/logo_nacar.png') }}" alt="Logo Nacar" class="form-logo">
-        <h1>Cadastro de Clientes</h1>
+    <img src="/static/img/logo_nacar.png" class="logo" alt="NACAR">
+    <form>
+        <h2>Cadastro de Clientes</h2>
+        <input type="text" placeholder="Nome do Contato">
+        <input type="text" placeholder="Nome Fantasia (Loja)">
+        <div style="display: flex; gap: 10px;">
+            <input type="text" placeholder="CEP" style="flex:1;">
+            <input type="text" placeholder="Endereço completo" style="flex:2;">
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" placeholder="Telefone" style="flex:1;">
+            <input type="text" placeholder="WhatsApp" style="flex:1;">
+        </div>
+        <input type="text" placeholder="Site ou Rede Social">
 
-        <form method="POST" action="/salvar_cadastro" enctype="multipart/form-data">
+        <h3>Produtos que Trabalha</h3>
+        <label><input type="checkbox"> Capacete</label>
+        <label><input type="checkbox"> Luvas</label>
+        <label><input type="checkbox"> Jaquetas</label>
+        <label><input type="checkbox"> Macacão</label>
+        <label><input type="checkbox"> Intercomunicador</label>
+        <label><input type="checkbox"> Oficina</label>
 
-            <input type="text" name="contato" placeholder="Nome do Contato" required>
-            <input type="text" name="fantasia" placeholder="Nome Fantasia (Loja)" required>
+        <h3>Marcas dos Produtos</h3>
+        <input type="text" placeholder="Digite as marcas que trabalha">
 
-            <div class="cep-row">
-                <input type="text" name="cep" placeholder="CEP" class="cep">
-                <input type="text" name="endereco" placeholder="Endereço completo" required>
-            </div>
+        <h3>Fotos (até 4)</h3>
+        <div class="upload-group">
+            <input type="file">
+            <input type="file">
+            <input type="file">
+            <input type="file">
+        </div>
 
-            <div class="double-row">
-                <input type="text" name="telefone" placeholder="Telefone">
-                <input type="text" name="whatsapp" placeholder="WhatsApp">
-            </div>
+        <div class="button-group">
+            <button type="button" class="button-pdf">
+                <img src="/static/img/pdf.png" height="20"> Gerar PDF
+            </button>
+            <button type="button" class="button-retorno" onclick="openRetornoPopup()">
+                <img src="/static/img/calendario.png" height="20"> Retorno
+            </button>
+        </div>
+    </form>
 
-            <input type="text" name="site" placeholder="Site ou Rede Social">
-
-            <h2>Produtos que Trabalha</h2>
-            <div class="checkbox-group">
-                {% for item in ['Capacete', 'Luvas', 'Jaquetas', 'Macacão', 'Intercomunicador', 'Oficina'] %}
-                <label><input type="checkbox" name="produtos" value="{{ item }}"> {{ item }}</label>
-                {% endfor %}
-            </div>
-
-            <h2>Marcas dos Produtos</h2>
-            <input type="text" name="marcas" placeholder="Digite as marcas que trabalha">
-
-            <h2>Fotos (até 4)</h2>
-            <div class="upload-grid">
-                {% for i in range(4) %}
-                <input type="file" name="foto{{ i+1 }}">
-                {% endfor %}
-            </div>
-
-            <div class="action-buttons">
-                <button type="submit" class="pdf-btn">
-                    <img src="{{ url_for('static', filename='img/pdf-icon.png') }}" alt="PDF"> Gerar PDF
-                </button>
-                <a href="/" class="return-btn">
-                    <img src="{{ url_for('static', filename='img/icon_visita.png') }}" alt="Voltar"> Retorno
-                </a>
-            </div>
-        </form>
+    <div id="popup-retorno" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#0008;">
+        <div style="background:white; padding:20px; max-width:400px; margin:80px auto; border-radius:12px;">
+            <h3>Agendar Retorno</h3>
+            <input type="date">
+            <button onclick="closeRetornoPopup()">Fechar</button>
+        </div>
     </div>
 </body>
 </html>
