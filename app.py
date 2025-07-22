@@ -126,18 +126,19 @@ def visualizar_cliente(id):
 def gerar_pdf_cliente(id):
     cliente = ClienteCaptado.query.get_or_404(id)
     html = render_template("cliente.html", cliente=cliente)
-    pdf = HTML(string=html, base_url=request.base_url).write_pdf()
-    
+    pdf = HTML(string=html, base_url=request.base_url).write_pdf(stylesheets=["static/style.css"])
+
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = f'inline; filename=cliente_{id}.pdf'
     return response
 
-@app.route('/agenda')
-def agenda():
-    clientes = ClienteCaptado.query.filter(ClienteCaptado.proxima_visita != None).order_by(ClienteCaptado.proxima_visita).all()
-    return render_template("agenda.html", clientes=clientes)
-
+@app.route("/excluir/<int:id>", methods=["POST"])
+def excluir_cliente(id):
+    cliente = ClienteCaptado.query.get_or_404(id)
+    db.session.delete(cliente)
+    db.session.commit()
+    return redirect("/clientes")
 
 if __name__ == '__main__':
     app.run(debug=True)
