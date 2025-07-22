@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container" style="margin-top: 40px;">
+<div class="container" style="margin: 80px 15px 100px 15px;">
   <h2 style="text-align: center; margin-bottom: 20px; font-size: 1.5rem;">📋 Novo Cadastro</h2>
   <form action="/salvar_cadastro" method="POST" enctype="multipart/form-data" class="form-cadastro">
 
@@ -46,6 +46,12 @@
     <button type="submit" class="btn-primary">✅ Salvar Cadastro</button>
     <a href="/" class="btn-cancelar">⬅️ Voltar para Início</a>
   </form>
+</div>
+
+<div class="bottom-navbar">
+  <a href="/cadastro">📋</a>
+  <a href="/clientes">🤝</a>
+  <a href="/agenda">📅</a>
 </div>
 
 <style>
@@ -93,6 +99,24 @@
     .input-group {
       flex-direction: row;
     }
+  }
+
+  .bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #222;
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-around;
+    z-index: 999;
+  }
+
+  .bottom-navbar a {
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
   }
 </style>
 {% endblock %}
