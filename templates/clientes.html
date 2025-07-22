@@ -1,44 +1,22 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
-  <div class="container">
-    <h2>📋 Lista de Clientes</h2>
 
-    {% for cliente in clientes %}
-      <div style="background:#fff;padding:15px;margin:10px 0;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.1)">
-        <strong>🔹 {{ cliente.nome }}</strong><br>
-        {% if cliente.nome_fantasia %}
-          🏬 Loja: {{ cliente.nome_fantasia }}<br>
-        {% endif %}
-        {% if cliente.telefone %}
-          📞 Telefone: {{ cliente.telefone }}<br>
-        {% endif %}
-        {% if cliente.whatsapp %}
-          💬 WhatsApp: {{ cliente.whatsapp }}<br>
-        {% endif %}
-        <div style="margin-top:8px">
-          🔗 <a href="{{ url_for('visualizar_cliente', id=cliente.id) }}">Ver detalhes</a> |
-          ✏️ <a href="{{ url_for('editar_cliente', id=cliente.id) }}">Editar</a> |
-          🗑️ <a href="#" onclick="excluirCliente({{ cliente.id }})">Excluir</a>
-        </div>
-      </div>
-    {% endfor %}
+<h2 style="text-align:center; margin-bottom: 20px;">Clientes Cadastrados</h2>
+
+{% for cliente in clientes %}
+  <div class="card">
+    <h3>✨ {{ cliente.nome }}</h3>
+    <p>🏢 Loja: {{ cliente.nome_fantasia or 'Não informado' }}</p>
+    <p>📞 Telefone: {{ cliente.telefone or 'Não informado' }}</p>
+    <p>💌 WhatsApp: {{ cliente.whatsapp or 'Não informado' }}</p>
+    <div style="margin-top: 10px">
+      <a class="btn" href="/cliente/{{ cliente.id }}">🔗 Ver detalhes</a>
+      <a class="btn" href="/editar/{{ cliente.id }}">✏️ Editar</a>
+      <a class="btn" href="/cliente/{{ cliente.id }}/pdf">📄 PDF</a>
+    </div>
   </div>
-
-  <script type="text/javascript">
-  function excluirCliente(id) {
-    if (confirm("Tem certeza que deseja excluir este cliente?")) {
-      fetch("/cliente/" + id + "/excluir", {
-        method: "POST"
-      }).then(function (res) {
-        if (res.ok) {
-          location.reload();
-        } else {
-          alert("Erro ao excluir cliente.");
-        }
-      });
-    }
-  }
-</script>
-
+{% else %}
+  <p style="text-align:center;">Nenhum cliente cadastrado.</p>
+{% endfor %}
 
 {% endblock %}
