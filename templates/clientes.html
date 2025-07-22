@@ -1,22 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
+<h2 class="titulo">Clientes Cadastrados</h2>
+<div class="clientes-lista">
+  {% for cliente in clientes %}
+    <div class="card-cliente">
+      {% if cliente.foto1 %}
+        <img src="{{ url_for('static', filename='uploads/' + cliente.foto1) }}" class="cliente-foto" alt="Foto do cliente">
+      {% else %}
+        <img src="{{ url_for('static', filename='img/icon_cadastro.png') }}" class="cliente-foto" alt="Foto do cliente">
+      {% endif %}
 
-<h2 style="text-align:center; margin-bottom: 20px;">Clientes Cadastrados</h2>
+      <div class="cliente-info">
+        <h3>{{ cliente.nome }}</h3>
+        <p><strong>Loja:</strong> {{ cliente.nome_fantasia }}</p>
+        <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+        <p><strong>WhatsApp:</strong> {{ cliente.whatsapp }}</p>
 
-{% for cliente in clientes %}
-  <div class="card">
-    <h3>✨ {{ cliente.nome }}</h3>
-    <p>🏢 Loja: {{ cliente.nome_fantasia or 'Não informado' }}</p>
-    <p>📞 Telefone: {{ cliente.telefone or 'Não informado' }}</p>
-    <p>💌 WhatsApp: {{ cliente.whatsapp or 'Não informado' }}</p>
-    <div style="margin-top: 10px">
-      <a class="btn" href="/cliente/{{ cliente.id }}">🔗 Ver detalhes</a>
-      <a class="btn" href="/editar/{{ cliente.id }}">✏️ Editar</a>
-      <a class="btn" href="/cliente/{{ cliente.id }}/pdf">📄 PDF</a>
+        <div class="acoes">
+          <a href="/cliente/{{ cliente.id }}">🔍 Ver detalhes</a>
+          <a href="/editar/{{ cliente.id }}">✏️ Editar</a>
+          <form action="/excluir/{{ cliente.id }}" method="POST" style="display:inline">
+            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">🗑️ Excluir</button>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-{% else %}
-  <p style="text-align:center;">Nenhum cliente cadastrado.</p>
-{% endfor %}
-
+  {% endfor %}
+</div>
 {% endblock %}
