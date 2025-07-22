@@ -24,7 +24,7 @@
     {% endfor %}
   </div>
 
-  <script>
+  <script type="text/javascript">
   function excluirCliente(id) {
     if (confirm("Tem certeza que deseja excluir este cliente?")) {
       fetch("/cliente/" + id + "/excluir", {
@@ -39,5 +39,6 @@
     }
   }
 </script>
+
 
 {% endblock %}
