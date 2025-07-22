@@ -38,20 +38,6 @@
   <a href="/agenda">📅</a>
 </div>
 
-<!-- Dark Mode Toggle -->
-<button class="dark-toggle" onclick="toggleDark()">🌙</button>
-<script>
-  const toggleDark = () => {
-    document.body.classList.toggle("dark");
-    localStorage.setItem("darkmode", document.body.classList.contains("dark"));
-  };
-  window.onload = () => {
-    if (localStorage.getItem("darkmode") === "true") {
-      document.body.classList.add("dark");
-    }
-  };
-</script>
-
 <!-- Estilos -->
 <style>
   .bottom-navbar {
@@ -70,38 +56,6 @@
     color: white;
     font-size: 1.5rem;
     text-decoration: none;
-  }
-
-  .dark-toggle {
-    position: fixed;
-    bottom: 70px;
-    right: 20px;
-    background: #222;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    padding: 12px;
-    font-size: 1.2rem;
-    z-index: 1000;
-    cursor: pointer;
-  }
-
-  body.dark {
-    background: #121212;
-    color: #f1f1f1;
-  }
-
-  body.dark .fc {
-    background: #1e1e1e;
-    color: white;
-  }
-
-  body.dark .bottom-navbar {
-    background: #000;
-  }
-
-  body.dark .dark-toggle {
-    background: #444;
   }
 
   h2 {
