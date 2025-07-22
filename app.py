@@ -133,12 +133,23 @@ def gerar_pdf_cliente(id):
     response.headers['Content-Disposition'] = f'inline; filename=cliente_{id}.pdf'
     return response
 
-@app.route("/excluir/<int:id>", methods=["POST"])
+@app.route('/excluir/<int:id>')
 def excluir_cliente(id):
     cliente = ClienteCaptado.query.get_or_404(id)
+    
+    # Remove fotos associadas (se existirem)
+    for foto in [cliente.foto1, cliente.foto2, cliente.foto3, cliente.foto4]:
+        if foto:
+            path = os.path.join(app.config['UPLOAD_FOLDER'], foto)
+            if os.path.exists(path):
+                os.remove(path)
+
     db.session.delete(cliente)
     db.session.commit()
-    return redirect("/clientes")
+    return redirect(url_for('listar_clientes'))
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
