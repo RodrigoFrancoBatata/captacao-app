@@ -1,19 +1,23 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
-<h2 style="text-align:center;">📅 Agenda de Retornos</h2>
 
-{% if clientes %}
-  <ul style="list-style: none; padding: 0; max-width: 600px; margin: 20px auto;">
-    {% for cliente in clientes %}
-      <li style="background: white; border-radius: 10px; padding: 15px; margin-bottom: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-        <strong>{{ cliente.nome_fantasia }}</strong><br>
-        📅 Próximo retorno: {{ cliente.proxima_visita.strftime('%d/%m/%Y') }}<br>
-        📞 Telefone: {{ cliente.telefone or '-' }}<br>
-        <a href="/cliente/{{ cliente.id }}" style="color: #007bff; text-decoration: none;">🔍 Ver detalhes</a>
-      </li>
-    {% endfor %}
-  </ul>
+<h2 style="text-align:center; margin-bottom: 20px;">Próximas Visitas</h2>
+
+{% for cliente in clientes %}
+  {% if cliente.proxima_visita %}
+    <div class="card">
+      <h3>✨ {{ cliente.nome }}</h3>
+      <p>🏢 Loja: {{ cliente.nome_fantasia or 'Não informado' }}</p>
+      <p>📅 Visita agendada para: <strong>{{ cliente.proxima_visita }}</strong></p>
+      <p>💌 WhatsApp: {{ cliente.whatsapp or 'Não informado' }}</p>
+      <div style="margin-top: 10px">
+        <a class="btn" href="/cliente/{{ cliente.id }}">🔗 Ver detalhes</a>
+        <a class="btn" href="/editar/{{ cliente.id }}">✏️ Editar</a>
+      </div>
+    </div>
+  {% endif %}
 {% else %}
-  <p style="text-align:center; color: #777;">Nenhum retorno agendado.</p>
-{% endif %}
+  <p style="text-align:center;">Nenhuma visita agendada.</p>
+{% endfor %}
+
 {% endblock %}
