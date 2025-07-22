@@ -1,99 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>App de Captação</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding-top: 90px;
-      background: #f9f9f9;
-    }
 
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
+  <!-- Estilo principal -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 
-    .navbar-logo {
-      text-align: center;
-      padding: 10px;
-      border-bottom: 1px solid #eee;
-    }
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#222222" />
 
-    .navbar-logo img {
-      height: 40px;
-    }
-
-    .navbar-links {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      overflow-x: auto;
-      padding: 10px 0;
-      white-space: nowrap;
-    }
-
-    .navbar-links a {
-      color: #333;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 15px;
-      padding: 4px 10px;
-    }
-
-    .navbar-links a:hover {
-      text-decoration: underline;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    @media (max-width: 600px) {
-      .navbar-links {
-        justify-content: flex-start;
-        padding: 10px 15px;
-        gap: 15px;
-      }
-
-      .container {
-        padding: 12px;
-      }
-
-      .navbar-logo img {
-        height: 35px;
-      }
-
-      .navbar-links a {
-        font-size: 16px;
-      }
-    }
-  </style>
+  <!-- Ícone e PWA para iOS -->
+  <link rel="icon" href="{{ url_for('static', filename='img/icon-192.png') }}" />
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/icon-192.png') }}" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </head>
 <body>
 
-  <div class="navbar">
-    <div class="navbar-logo">
-      <img src="/static/img/logo_nacar.png" alt="NACAR">
-    </div>
-    <div class="navbar-links">
-      <a href="/">🏠 Início</a>
-      <a href="/clientes">📋 Clientes</a>
-      <a href="/agenda">📅 Agenda</a>
-    </div>
+  <!-- Logo superior -->
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='img/logo_nacar.png') }}" alt="Logo NACAR" class="logo-topo" />
   </div>
 
   <div class="container">
     {% block content %}{% endblock %}
   </div>
 
+  <!-- Barra de navegação inferior -->
+  <div class="bottom-navbar">
+    <a href="/"><img src="{{ url_for('static', filename='img/icon_cadastro.png') }}" alt="Cadastro" /><span>Início</span></a>
+    <a href="/clientes"><img src="{{ url_for('static', filename='img/icon_visita.png') }}" alt="Clientes" /><span>Clientes</span></a>
+    <a href="/agenda"><img src="{{ url_for('static', filename='img/calendario.png') }}" alt="Agenda" /><span>Agenda</span></a>
+  </div>
+
+  <!-- Script PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/static/service-worker.js')
+        .then(function (reg) {
+          console.log("Service Worker registrado", reg);
+        })
+        .catch(function (err) {
+          console.error("Erro ao registrar Service Worker", err);
+        });
+    }
+  </script>
 </body>
 </html>
