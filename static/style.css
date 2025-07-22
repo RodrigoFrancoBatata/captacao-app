@@ -1,117 +1,14 @@
-body {
-  font-family: sans-serif;
-  margin: 0;
-  background: #f9f9f9;
-}
-
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #ccc;
-  padding: 10px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 1000;
-}
-
-.logo-navbar {
-  max-height: 40px;
-  margin-bottom: 5px;
-}
-
-.menu-links {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.menu-links a {
-  text-decoration: none;
+.btn-voltar {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 6px 12px;
+  background: #eee;
+  border-radius: 8px;
+  font-size: 14px;
   color: #333;
-  font-weight: bold;
-  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.3s;
 }
-
-.container {
-  padding: 80px 20px 20px;
-  max-width: 600px;
-  margin: auto;
-}
-
-form {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-form h2 {
-  margin-top: 0;
-  font-size: 20px;
-  text-align: center;
-}
-
-form input[type="text"],
-form input[type="tel"],
-form input[type="url"],
-form input[type="file"],
-form input[type="date"],
-form select,
-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-
-form textarea {
-  resize: vertical;
-}
-
-form .form-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-form .form-row > div {
-  flex: 1 1 100%;
-}
-
-form .checkbox-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-}
-
-.btn-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.btn-group button {
-  flex: 1;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-}
-
-.btn-group .btn-save {
-  background-color: #e53935;
-  color: white;
-}
-
-.btn-group .btn-cancel {
-  background-color: #333;
-  color: white;
+.btn-voltar:hover {
+  background: #ddd;
 }
