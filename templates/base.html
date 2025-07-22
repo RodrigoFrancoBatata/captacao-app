@@ -1,52 +1,78 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>App de Captação</title>
+{% extends 'base.html' %}
+{% block content %}
+  <h2 class="titulo">Cadastro de Cliente</h2>
+  <form action="/salvar_cadastro" method="POST" enctype="multipart/form-data" class="formulario">
+    <label for="nome">Responsável:</label>
+    <input type="text" name="nome" required>
 
-  <!-- Estilo principal -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <label for="nome_fantasia">Nome da Loja:</label>
+    <input type="text" name="nome_fantasia">
 
-  <!-- Manifest PWA -->
-  <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#222222" />
+    <label for="cep">CEP:</label>
+    <input type="text" name="cep" id="cep" maxlength="9" onblur="buscarEndereco()">
 
-  <!-- Ícone e PWA para iOS -->
-  <link rel="icon" href="{{ url_for('static', filename='img/icon-192.png') }}" />
-  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/icon-192.png') }}" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-</head>
-<body>
+    <label for="endereco">Endereço:</label>
+    <input type="text" name="endereco" id="endereco">
 
-  <!-- Logo superior -->
-  <div class="logo-container">
-    <img src="{{ url_for('static', filename='img/logo_nacar.png') }}" alt="Logo NACAR" class="logo-topo" />
+    <label for="telefone">Telefone:</label>
+    <input type="text" name="telefone">
+
+    <label for="whatsapp">WhatsApp:</label>
+    <input type="text" name="whatsapp">
+
+    <label for="site">Site:</label>
+    <input type="text" name="site">
+
+    <label>Produtos Trabalhados:</label><br>
+    <label><input type="checkbox" name="produtos" value="Capacete"> Capacete</label>
+    <label><input type="checkbox" name="produtos" value="Jaqueta"> Jaqueta</label>
+    <label><input type="checkbox" name="produtos" value="Luvas"> Luvas</label>
+    <label><input type="checkbox" name="produtos" value="Calça"> Calça</label>
+    <label><input type="checkbox" name="produtos" value="Botas"> Botas</label>
+
+    <label for="marcas">Marcas Trabalhadas:</label>
+    <input type="text" name="marcas">
+
+    <label for="novas_marcas">Gostaria de conhecer quais marcas?</label>
+    <input type="text" name="novas_marcas">
+
+    <label for="info_extra">Informações extras:</label>
+    <textarea name="info_extra"></textarea>
+
+    <label for="data_visita">Data da Visita:</label>
+    <input type="date" name="data_visita">
+
+    <label for="proxima_visita">Próxima Visita:</label>
+    <input type="date" name="proxima_visita">
+
+    <label for="foto1">Foto 1:</label>
+    <input type="file" name="foto1" accept="image/*">
+
+    <label for="foto2">Foto 2:</label>
+    <input type="file" name="foto2" accept="image/*">
+
+    <label for="foto3">Foto 3:</label>
+    <input type="file" name="foto3" accept="image/*">
+
+    <label for="foto4">Foto 4:</label>
+    <input type="file" name="foto4" accept="image/*">
+
+    <button type="submit">Salvar</button>
+  </form>
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="/" class="btn-voltar">⬅️ Voltar para início</a>
   </div>
 
-  <div class="container">
-    {% block content %}{% endblock %}
-  </div>
-
-  <!-- Barra de navegação inferior -->
-  <div class="bottom-navbar">
-    <a href="/"><img src="{{ url_for('static', filename='img/icon_cadastro.png') }}" alt="Cadastro" /><span>Início</span></a>
-    <a href="/clientes"><img src="{{ url_for('static', filename='img/icon_visita.png') }}" alt="Clientes" /><span>Clientes</span></a>
-    <a href="/agenda"><img src="{{ url_for('static', filename='img/calendario.png') }}" alt="Agenda" /><span>Agenda</span></a>
-  </div>
-
-  <!-- Script PWA -->
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/static/service-worker.js')
-        .then(function (reg) {
-          console.log("Service Worker registrado", reg);
-        })
-        .catch(function (err) {
-          console.error("Erro ao registrar Service Worker", err);
-        });
+    function buscarEndereco() {
+      const cep = document.getElementById('cep').value.replace(/\D/g, '');
+      if (cep.length === 8) {
+        fetch(`/consulta_cep/${cep}`)
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('endereco').value = data.endereco;
+          });
+      }
     }
   </script>
-</body>
-</html>
+{% endblock %}
