@@ -1,23 +1,31 @@
 {% extends 'base.html' %}
-{% block content %}
-<div style="text-align: center; padding: 30px;">
-  <img src="/static/img/logo_nacar.png" alt="Logo NACAR" style="height: 90px; margin-bottom: 10px;">
-  <h2 style="margin-top: 0; font-size: 26px;">Sistema de Captação de Clientes</h2>
-  <p style="color: #666; font-size: 15px;">Organize cadastros, acompanhe visitas e planeje retornos com eficiência.</p>
-</div>
 
-<div class="menu-buttons">
-  <a href="/cadastro" class="menu-btn">
-    <img src="/static/img/icon_cadastro.png" alt="Cadastro">
-    <span>Cadastro</span>
-  </a>
-  <a href="/clientes" class="menu-btn">
-    <img src="/static/img/icon_visita.png" alt="Clientes">
-    <span>Clientes</span>
-  </a>
-  <a href="/agenda" class="menu-btn">
-    <img src="/static/img/calendario.png" alt="Agenda">
-    <span>Agenda</span>
-  </a>
-</div>
+{% block content %}
+  <h2 style="text-align: center;">Sistema de Captação de Clientes</h2>
+  <p style="text-align: center; max-width: 400px; margin: auto; font-size: 15px;">
+    Organize cadastros, acompanhe visitas e planeje retornos com eficiência.
+  </p>
+
+  <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px; margin: 30px auto;">
+    <a href="/cadastro" style="text-decoration: none;">
+      <div style="background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px;">
+        <img src="/static/img/icon_cadastro.png" alt="Cadastro" style="height: 24px;">
+        <span style="color: #333;">Cadastro</span>
+      </div>
+    </a>
+    
+    <a href="/clientes" style="text-decoration: none;">
+      <div style="background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px;">
+        <img src="/static/img/icon_visita.png" alt="Clientes" style="height: 24px;">
+        <span style="color: #333;">Clientes</span>
+      </div>
+    </a>
+    
+    <a href="/agenda" style="text-decoration: none;">
+      <div style="background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px;">
+        <img src="/static/img/calendario.png" alt="Agenda" style="height: 24px;">
+        <span style="color: #333;">Agenda</span>
+      </div>
+    </a>
+  </div>
 {% endblock %}
