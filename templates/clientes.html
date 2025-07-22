@@ -1,30 +1,58 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2 class="titulo">Clientes Cadastrados</h2>
-<div class="clientes-lista">
-  {% for cliente in clientes %}
-    <div class="card-cliente">
-      {% if cliente.foto1 %}
-        <img src="{{ url_for('static', filename='uploads/' + cliente.foto1) }}" class="cliente-foto" alt="Foto do cliente">
-      {% else %}
-        <img src="{{ url_for('static', filename='img/icon_cadastro.png') }}" class="cliente-foto" alt="Foto do cliente">
-      {% endif %}
+<div class="container" style="padding: 20px 15px 100px 15px;">
+  <h2 style="text-align: center; margin-bottom: 20px;">🤝 Clientes Cadastrados</h2>
 
-      <div class="cliente-info">
-        <h3>{{ cliente.nome }}</h3>
-        <p><strong>Loja:</strong> {{ cliente.nome_fantasia }}</p>
-        <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
-        <p><strong>WhatsApp:</strong> {{ cliente.whatsapp }}</p>
-
-        <div class="acoes">
-          <a href="/cliente/{{ cliente.id }}">🔍 Ver detalhes</a>
-          <a href="/editar/{{ cliente.id }}">✏️ Editar</a>
-          <form action="/excluir/{{ cliente.id }}" method="POST" style="display:inline">
-            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">🗑️ Excluir</button>
-          </form>
+  {% if clientes %}
+    {% for cliente in clientes %}
+      <div class="card">
+        <h3>🔹 {{ cliente.nome }}</h3>
+        <p>🏬 Loja: {{ cliente.nome_fantasia or 'Não informado' }}</p>
+        <p>📞 Telefone: {{ cliente.telefone or 'Não informado' }}</p>
+        <p>💬 WhatsApp: {{ cliente.whatsapp or 'Não informado' }}</p>
+        <div class="card-actions">
+          <a href="/cliente/{{ cliente.id }}">🔍</a>
+          <a href="/editar/{{ cliente.id }}">✏️</a>
+          <a href="/excluir/{{ cliente.id }}" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">🗑️</a>
         </div>
       </div>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  {% else %}
+    <p style="text-align: center;">Nenhum cliente cadastrado ainda.</p>
+  {% endif %}
 </div>
+
+<style>
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .card h3 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .card p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+
+  .card-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .card-actions a {
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+</style>
 {% endblock %}
