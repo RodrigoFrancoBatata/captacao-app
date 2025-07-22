@@ -1,23 +1,117 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container" style="margin: 60px 15px 100px 15px;">
+  <h2 style="text-align:center; margin-bottom: 20px; font-size: 1.5rem;">📅 Próximas Visitas</h2>
 
-<h2 style="text-align:center; margin-bottom: 20px;">Próximas Visitas</h2>
-
-{% for cliente in clientes %}
-  {% if cliente.proxima_visita %}
-    <div class="card">
-      <h3>✨ {{ cliente.nome }}</h3>
-      <p>🏢 Loja: {{ cliente.nome_fantasia or 'Não informado' }}</p>
-      <p>📅 Visita agendada para: <strong>{{ cliente.proxima_visita }}</strong></p>
-      <p>💌 WhatsApp: {{ cliente.whatsapp or 'Não informado' }}</p>
-      <div style="margin-top: 10px">
-        <a class="btn" href="/cliente/{{ cliente.id }}">🔗 Ver detalhes</a>
-        <a class="btn" href="/editar/{{ cliente.id }}">✏️ Editar</a>
+  {% for cliente in clientes %}
+    {% if cliente.proxima_visita %}
+      <div class="card">
+        <h3 style="font-size: 1.2rem;">✨ {{ cliente.nome }}</h3>
+        <p>🏢 Loja: {{ cliente.nome_fantasia or 'Não informado' }}</p>
+        <p>📅 Agendada para: <strong>{{ cliente.proxima_visita }}</strong></p>
+        <p>💌 WhatsApp: {{ cliente.whatsapp or 'Não informado' }}</p>
+        <div style="margin-top: 10px; display: flex; gap: 10px;">
+          <a class="btn" href="/cliente/{{ cliente.id }}">🔗 Ver</a>
+          <a class="btn" href="/editar/{{ cliente.id }}">✏️ Editar</a>
+        </div>
       </div>
-    </div>
-  {% endif %}
-{% else %}
-  <p style="text-align:center;">Nenhuma visita agendada.</p>
-{% endfor %}
+    {% endif %}
+  {% else %}
+    <p style="text-align:center;">Nenhuma visita agendada.</p>
+  {% endfor %}
+</div>
 
+<!-- Navbar inferior -->
+<div class="bottom-navbar">
+  <a href="/cadastro">📋</a>
+  <a href="/clientes">🤝</a>
+  <a href="/agenda">📅</a>
+</div>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-toggle" onclick="toggleDark()">🌙</button>
+<script>
+  const toggleDark = () => {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("darkmode", document.body.classList.contains("dark"));
+  };
+  window.onload = () => {
+    if (localStorage.getItem("darkmode") === "true") {
+      document.body.classList.add("dark");
+    }
+  };
+</script>
+
+<style>
+  .card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #222;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #222;
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-around;
+    z-index: 999;
+  }
+
+  .bottom-navbar a {
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+
+  .dark-toggle {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    font-size: 1.2rem;
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  body.dark {
+    background: #121212;
+    color: #f1f1f1;
+  }
+
+  body.dark .card {
+    background: #1e1e1e;
+  }
+
+  body.dark .btn {
+    background-color: #333;
+  }
+
+  body.dark .bottom-navbar {
+    background: #000;
+  }
+
+  body.dark .dark-toggle {
+    background: #444;
+  }
+</style>
 {% endblock %}
