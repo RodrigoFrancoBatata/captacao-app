@@ -125,8 +125,8 @@ def visualizar_cliente(id):
 @app.route('/cliente/<int:id>/pdf')
 def gerar_pdf_cliente(id):
     cliente = ClienteCaptado.query.get_or_404(id)
-    html = render_template("cliente.html", cliente=cliente)
-    pdf = HTML(string=html, base_url=request.base_url).write_pdf(stylesheets=["static/style.css"])
+    html = render_template("cliente_pdf.html", cliente=cliente)
+    pdf = HTML(string=html, base_url=request.base_url).write_pdf()
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'

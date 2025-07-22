@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Ficha de Cliente</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .info p {
+      margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Ficha de Cliente</h2>
+  <div class="info">
+    <p><strong>Responsável:</strong> {{ cliente.nome }}</p>
+    <p><strong>Nome da Loja:</strong> {{ cliente.nome_fantasia }}</p>
+    <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+    <p><strong>CEP:</strong> {{ cliente.cep or '' }}</p>
+    <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+    <p><strong>WhatsApp:</strong> {{ cliente.whatsapp }}</p>
+    <p><strong>Site:</strong> {{ cliente.site }}</p>
+    <p><strong>Produtos:</strong> {{ cliente.produtos }}</p>
+    <p><strong>Marcas Trabalhadas:</strong> {{ cliente.marcas }}</p>
+    <p><strong>Marcas que Deseja Conhecer:</strong> {{ cliente.novas_marcas }}</p>
+    <p><strong>Informações Extras:</strong> {{ cliente.info_extra }}</p>
+    <p><strong>Data da Visita:</strong> {{ cliente.data_visita }}</p>
+    <p><strong>Próxima Visita:</strong> {{ cliente.proxima_visita }}</p>
+  </div>
+</body>
+</html>
