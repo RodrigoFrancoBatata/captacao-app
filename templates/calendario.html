@@ -1,3 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="margin: 60px 15px 100px 15px;">
+  <h2 style="text-align:center; margin-bottom: 20px; font-size: 1.5rem;">📆 Calendário de Visitas</h2>
+  <div id="calendar" style="background:white; border-radius:12px; padding:10px;"></div>
+</div>
+
 <!-- Bloco oculto com os dados em JSON -->
 <script id="eventos-data" type="application/json">
   {{ eventos|tojson|safe }}
@@ -12,8 +19,94 @@
     const calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       height: 'auto',
-      events: eventos
+      events: eventos,
+      locale: 'pt-br',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: ''
+      }
     });
     calendar.render();
   });
 </script>
+
+<!-- Navbar inferior -->
+<div class="bottom-navbar">
+  <a href="/cadastro">📋</a>
+  <a href="/clientes">🤝</a>
+  <a href="/agenda">📅</a>
+</div>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-toggle" onclick="toggleDark()">🌙</button>
+<script>
+  const toggleDark = () => {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("darkmode", document.body.classList.contains("dark"));
+  };
+  window.onload = () => {
+    if (localStorage.getItem("darkmode") === "true") {
+      document.body.classList.add("dark");
+    }
+  };
+</script>
+
+<!-- Estilos -->
+<style>
+  .bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #222;
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-around;
+    z-index: 999;
+  }
+
+  .bottom-navbar a {
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+
+  .dark-toggle {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    font-size: 1.2rem;
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  body.dark {
+    background: #121212;
+    color: #f1f1f1;
+  }
+
+  body.dark .fc {
+    background: #1e1e1e;
+    color: white;
+  }
+
+  body.dark .bottom-navbar {
+    background: #000;
+  }
+
+  body.dark .dark-toggle {
+    background: #444;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+</style>
+{% endblock %}
