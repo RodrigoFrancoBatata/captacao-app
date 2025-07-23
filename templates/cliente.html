@@ -1,40 +1,36 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
 {% block content %}
-<h2 style="text-align:center;">🧾 Detalhes do Cliente</h2>
+<div class="container">
+  <div class="card cliente-detalhes">
+    <h2>{{ cliente.nome }}</h2>
+    <p><strong>Loja:</strong> {{ cliente.nome_fantasia }}</p>
+    <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+    <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+    <p><strong>WhatsApp:</strong> {{ cliente.whatsapp }}</p>
+    <p><strong>Site ou Rede Social:</strong> {{ cliente.site }}</p>
+    <p><strong>Produtos:</strong> {{ cliente.produtos }}</p>
+    <p><strong>Marcas:</strong> {{ cliente.marcas }}</p>
+    <p><strong>Novas Marcas:</strong> {{ cliente.novas_marcas }}</p>
+    <p><strong>Informações Extras:</strong><br>{{ cliente.info_extra }}</p>
+    <p><strong>Data da Visita:</strong> {{ cliente.data_visita or "-" }}</p>
+    <p><strong>Próxima Visita:</strong> {{ cliente.proxima_visita or "-" }}</p>
 
-<div style="background: white; max-width: 700px; margin: 20px auto; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-  <p><strong>Contato:</strong> {{ cliente.nome }}</p>
-  <p><strong>Loja:</strong> {{ cliente.nome_fantasia }}</p>
-  <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
-  <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
-  <p><strong>WhatsApp:</strong> {{ cliente.whatsapp }}</p>
-  <p><strong>Site ou Rede Social:</strong> {{ cliente.site }}</p>
-  <p><strong>Produtos:</strong> {{ cliente.produtos }}</p>
-  <p><strong>Marcas:</strong> {{ cliente.marcas }}</p>
-  <p><strong>Novas Marcas:</strong> {{ cliente.novas_marcas }}</p>
-  <p><strong>Informações Extras:</strong><br>{{ cliente.info_extra }}</p>
-  <p><strong>Data da Visita:</strong> {{ cliente.data_visita.strftime('%d/%m/%Y') if cliente.data_visita else '-' }}</p>
-  <p><strong>Próxima Visita:</strong> {{ cliente.proxima_visita.strftime('%d/%m/%Y') if cliente.proxima_visita else '-' }}</p>
+    {% if cliente.foto1 or cliente.foto2 or cliente.foto3 or cliente.foto4 %}
+    <h3 style="margin-top: 15px;">📸 Fotos</h3>
+    <div class="fotos-preview">
+      {% for foto in [cliente.foto1, cliente.foto2, cliente.foto3, cliente.foto4] %}
+        {% if foto %}
+          <img src="{{ url_for('static', filename='uploads/' + foto) }}" alt="Foto do cliente" class="foto-thumb">
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
 
-  <h3>📸 Fotos</h3>
-  <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    {% for foto in [cliente.foto1, cliente.foto2, cliente.foto3, cliente.foto4] %}
-      {% if foto %}
-        <img src="/static/uploads/{{ foto }}" style="max-width: 45%; border-radius: 8px;">
-      {% endif %}
-    {% endfor %}
+    <div class="botoes-detalhes">
+      <a href="/clientes">🔙 Voltar</a>
+      <a href="/cliente/{{ cliente.id }}/pdf">📄 Gerar PDF</a>
+    </div>
   </div>
-
-  <div style="text-align:center; margin-top: 30px;">
-  <a href="/clientes" class="button-retorno">⬅️ Voltar</a>
-  <a href="/cliente/{{ cliente.id }}/pdf" class="button-pdf" style="margin-left: 15px;">
-    📄 Gerar PDF
-  </a>
-</div>
-
 </div>
 {% endblock %}
-<a href="/cliente/{{ cliente.id }}/pdf" class="button-pdf" style="display:inline-block; margin-top:10px;">
-    📄 Gerar PDF
-</a>
-
