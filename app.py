@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 from models import db, ClienteCaptado
 from dotenv import load_dotenv
 from weasyprint import HTML
+from datetime import datetime
 import os
 import requests
 
@@ -53,7 +54,7 @@ def salvar_cadastro():
     for i in range(1, 5):
         foto = request.files.get(f'foto{i}')
         if foto and foto.filename:
-            filename = secure_filename(foto.filename)
+            filename = secure_filename(f"{datetime.now().timestamp()}_{foto.filename}")
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             foto.save(path)
             fotos.append(filename)
@@ -136,8 +137,7 @@ def gerar_pdf_cliente(id):
 @app.route('/excluir/<int:id>')
 def excluir_cliente(id):
     cliente = ClienteCaptado.query.get_or_404(id)
-    
-    # Remove fotos associadas (se existirem)
+
     for foto in [cliente.foto1, cliente.foto2, cliente.foto3, cliente.foto4]:
         if foto:
             path = os.path.join(app.config['UPLOAD_FOLDER'], foto)
@@ -151,7 +151,6 @@ def excluir_cliente(id):
 @app.route('/agenda')
 def agenda():
     return render_template('agenda.html')
-
 
 
 if __name__ == '__main__':
