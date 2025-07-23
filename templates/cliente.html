@@ -1,36 +1,31 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="container">
-  <div class="card cliente-detalhes">
-    <h2>{{ cliente.nome }}</h2>
-    <p><strong>Loja:</strong> {{ cliente.nome_fantasia }}</p>
-    <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
-    <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
-    <p><strong>WhatsApp:</strong> {{ cliente.whatsapp }}</p>
-    <p><strong>Site ou Rede Social:</strong> {{ cliente.site }}</p>
-    <p><strong>Produtos:</strong> {{ cliente.produtos }}</p>
-    <p><strong>Marcas:</strong> {{ cliente.marcas }}</p>
-    <p><strong>Novas Marcas:</strong> {{ cliente.novas_marcas }}</p>
-    <p><strong>Informações Extras:</strong><br>{{ cliente.info_extra }}</p>
-    <p><strong>Data da Visita:</strong> {{ cliente.data_visita or "-" }}</p>
-    <p><strong>Próxima Visita:</strong> {{ cliente.proxima_visita or "-" }}</p>
+<div class="card">
+  <h2>{{ cliente.nome }}</h2>
+  <p><strong>Loja:</strong> {{ cliente.nome_fantasia }}</p>
+  <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+  <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+  <p><strong>WhatsApp:</strong> {{ cliente.whatsapp }}</p>
+  <p><strong>Site ou Rede Social:</strong> {{ cliente.site }}</p>
+  <p><strong>Produtos:</strong> {{ cliente.produtos }}</p>
+  <p><strong>Marcas:</strong> {{ cliente.marcas }}</p>
+  <p><strong>Novas Marcas:</strong> {{ cliente.novas_marcas }}</p>
+  <p><strong>Informações Extras:</strong><br>{{ cliente.info_extra }}</p>
+  <p><strong>Data da Visita:</strong> {{ cliente.data_visita or '-' }}</p>
+  <p><strong>Próxima Visita:</strong> {{ cliente.proxima_visita or '-' }}</p>
 
-    {% if cliente.foto1 or cliente.foto2 or cliente.foto3 or cliente.foto4 %}
-    <h3 style="margin-top: 15px;">📸 Fotos</h3>
-    <div class="fotos-preview">
-      {% for foto in [cliente.foto1, cliente.foto2, cliente.foto3, cliente.foto4] %}
-        {% if foto %}
-          <img src="{{ url_for('static', filename='uploads/' + foto) }}" alt="Foto do cliente" class="foto-thumb">
-        {% endif %}
-      {% endfor %}
-    </div>
-    {% endif %}
+  <h3>📷 Fotos</h3>
+  <div class="galeria-fotos">
+    {% for foto in [cliente.foto1, cliente.foto2, cliente.foto3, cliente.foto4] %}
+      {% if foto %}
+        <img src="{{ url_for('static', filename='uploads/' ~ foto) }}" alt="Foto do cliente">
+      {% endif %}
+    {% endfor %}
+  </div>
 
-    <div class="botoes-detalhes">
-      <a href="/clientes">🔙 Voltar</a>
-      <a href="/cliente/{{ cliente.id }}/pdf">📄 Gerar PDF</a>
-    </div>
+  <div class="botoes-acoes">
+    <a href="/" class="btn-voltar">🔙 Voltar</a>
+    <a href="/cliente/{{ cliente.id }}/pdf" class="btn-pdf">📄 Gerar PDF</a>
   </div>
 </div>
 {% endblock %}
