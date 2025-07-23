@@ -148,6 +148,9 @@ def excluir_cliente(id):
     db.session.commit()
     return redirect(url_for('listar_clientes'))
 
+@app.route('/agenda')
+def agenda():
+    return render_template('agenda.html')
 
 
 
